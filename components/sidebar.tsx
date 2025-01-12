@@ -17,6 +17,7 @@ const Sidebar = () => {
   ]
 
   const onNavigate = (url: string, pro: boolean) => {
+    console.log(pro)
     //TODO: Cehck if pro
 
     return router.push(url)
