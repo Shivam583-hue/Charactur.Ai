@@ -1,10 +1,12 @@
 import SearchInput from '@/components/SearchInput'
-import React from 'react'
+import React, { Suspense } from 'react';
 
 const RootPage = () => {
   return (
     <div className='h-full p-4 space-y-2'>
-      <SearchInput />
+      <Suspense fallback={<div>Loading Search...</div>}>
+        <SearchInput />
+      </Suspense>
     </div>
   )
 }
