@@ -19,6 +19,8 @@ const ImageUpload = ({ value, onChange, disabled }: ImageUploadProps) => {
 
   if (!isMounted) return null
 
+  console.log(value)
+
   return (
     <div className='space-y-4 w-full flex flex-col items-center justify-center'>
       <CldUploadButton

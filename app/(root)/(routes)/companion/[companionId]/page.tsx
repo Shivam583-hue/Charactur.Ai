@@ -11,9 +11,11 @@ interface CompanyionIdPageProps {
 const CompanionIdPage = async ({ params }: CompanyionIdPageProps) => {
   //TODO : Check subscription
 
+  const { companionId } = await params
+
   const companion = await prismadb.companion.findUnique({
     where: {
-      id: params.companionId
+      id: companionId
     }
   })
 
