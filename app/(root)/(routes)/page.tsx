@@ -13,8 +13,8 @@ interface RootPageProps {
 
 const RootPage = async ({ searchParams }: RootPageProps) => {
 
-  const categoryId = await searchParams.categoryId
-  const name = await searchParams.name
+  const categoryId = (await searchParams).categoryId
+  const name = (await searchParams).name
 
   const data = await prismadb.companion.findMany({
     where: {

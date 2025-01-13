@@ -13,7 +13,7 @@ interface ChatIdPageProps {
 const ChatIdPage = async ({ params }: ChatIdPageProps) => {
 
   const { userId } = await auth()
-  const id = await params.chatId
+  const id = (await params).chatId
 
   if (!userId) {
     return redirect('/sign-in')
