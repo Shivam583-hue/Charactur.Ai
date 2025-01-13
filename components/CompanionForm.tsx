@@ -68,7 +68,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
     try {
       if (initialData) {
         // update existing companion
-        await axios.patch(`/api/companions/${initialData.id}`, values)
+        await axios.patch(`/api/companion/${initialData.id}`, values)
       } else {
         // create new companion
         await axios.post('/api/companion', values)
