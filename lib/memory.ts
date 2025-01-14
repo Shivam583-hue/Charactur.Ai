@@ -1,7 +1,7 @@
 import { Redis } from "@upstash/redis";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { Pinecone, PineconeClient } from "@pinecone-database/pinecone";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { Pinecone } from "@pinecone-database/pinecone";
+import { PineconeStore } from "@langchain/pinecone";
 
 export type CompanionKey = {
   companionName: string;
@@ -12,24 +12,26 @@ export type CompanionKey = {
 export class MemoryManager {
   private static instance: MemoryManager;
   private history: Redis
-  private vectorDBClient = PineconeClient
+  private vectorDBClient: Pinecone
 
   public constructor() {
     this.history = Redis.fromEnv()
-    this.vectorDBClient = new PineconeClient()
+    this.vectorDBClient = new Pinecone({
+      apiKey: process.env.PINECONE_API_KEY!,
+      //   environment: process.env.PINECONE_ENVIRONMENT,
+    })
   }
 
-  public async init() {
-    if (this.vectorDBClient instanceof PineconeClient) {
-      await this.vectorDBClient.init({
-        apiKey: process.env.PINECONE_API_KEY,
-        environment: process.env.PINECONE_ENVIRONMENT,
-      });
-    }
-  }
+  //public async init() {
+  //  if (this.vectorDBClient instanceof PineconeClient) {
+  //    await this.vectorDBClient.init({
+  //      environment: process.env.PINECONE_ENVIRONMENT,
+  //    });
+  //  }
+  //}
 
   public async vectorSearch(recentChatHistory: string, companionFileName: string) {
-    const pineconeClient = <PineconeClient>this.vectorDBClient;
+    const pineconeClient = <Pinecone>this.vectorDBClient;
 
     const pineconeIndex = pineconeClient.Index(process.env.PINECONE_INDEX_NAME! || "");
 
@@ -43,19 +45,19 @@ export class MemoryManager {
       .catch((err: any) => console.log("Failed to get vector search", err));
     return similarDocs;
   }
-  public static async getInstance(): Promise<MemoryManager> {
-    if (!MemoryManager.instance) {
-      MemoryManager.instance = new MemoryManager();
-      await MemoryManager.instance.init();
-    }
-    return MemoryManager.instance;
-  }
+  //public static async getInstance(): Promise<MemoryManager> {
+  //  if (!MemoryManager.instance) {
+  //    MemoryManager.instance = new MemoryManager();
+  //    await MemoryManager.instance.init
+  //  }
+  //  return MemoryManager.instance;
+  //}
   private generateRedisCompanionKey(companionKey: CompanionKey): string {
     return `${companionKey.companionName}-${companionKey.modelName}-${companionKey.userId}`;
   }
 
   public async writeToHistory(text: string, companionKey: CompanionKey) {
-    if (!companionKey || typeof companionKey.userId !== "undefined") {
+    if (!companionKey || typeof companionKey.userId === "undefined") {
       console.log("Invalid companionKey");
       return;
     }
@@ -68,7 +70,7 @@ export class MemoryManager {
   }
 
   public async readLatestHistory(companionKey: CompanionKey): Promise<string> {
-    if (!companionKey || typeof companionKey.userId !== "undefined") {
+    if (!companionKey || typeof companionKey.userId === "undefined") {
       console.log("Invalid companionKey");
       return "";
     }
