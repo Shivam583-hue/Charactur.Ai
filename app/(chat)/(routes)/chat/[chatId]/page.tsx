@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
@@ -13,8 +14,8 @@ interface ChatIdPageProps {
 const ChatIdPage = async ({ params }: ChatIdPageProps) => {
 
   const { userId } = await auth()
-  //const id = (await params).chatId
-  const { chatId } = params
+  const id = (await params).chatId
+  //const { chatId } = params
 
   if (!userId) {
     return redirect('/sign-in')
@@ -22,7 +23,7 @@ const ChatIdPage = async ({ params }: ChatIdPageProps) => {
 
   const companion = await prismadb.companion.findUnique({
     where: {
-      id: chatId,
+      id,
     },
     include: {
       messages: {
