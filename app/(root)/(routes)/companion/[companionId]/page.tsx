@@ -4,13 +4,13 @@ import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
-interface CompanyionIdPageProps {
-  params: {
+interface CompanionPageProps{
+  params: Promise<{
     companionId: string
-  }
-}
+  }>
+} 
 
-const CompanionIdPage = async ({ params }: CompanyionIdPageProps) => {
+const CompanionIdPage = async ({ params }: CompanionPageProps) => {
   //TODO : Check subscription
 
   const { companionId } = await params

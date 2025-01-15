@@ -6,16 +6,14 @@ import prismadb from '@/lib/prismadb'
 import ChatClient from '@/components/ChatClient'
 
 interface ChatIdPageProps {
-  params: {
+  params: Promise<{
     chatId: string
-  }
+  }>
 }
 
-const ChatIdPage = async ({ params }: ChatIdPageProps) => {
-
+export default async function ChatIdPage({ params }: ChatIdPageProps) {
   const { userId } = await auth()
-  const id = (await params).chatId
-  //const { chatId } = params
+
 
   if (!userId) {
     return redirect('/sign-in')
@@ -23,7 +21,7 @@ const ChatIdPage = async ({ params }: ChatIdPageProps) => {
 
   const companion = await prismadb.companion.findUnique({
     where: {
-      id,
+      id: (await params).chatId
     },
     include: {
       messages: {
@@ -51,4 +49,3 @@ const ChatIdPage = async ({ params }: ChatIdPageProps) => {
   )
 }
 
-export default ChatIdPage

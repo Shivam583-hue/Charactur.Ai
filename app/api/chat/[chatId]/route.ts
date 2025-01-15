@@ -10,7 +10,7 @@ import { rateLimit } from "@/lib/rate-limit"
 import prismadb from "@/lib/prismadb"
 
 
-export async function POST(req: Request, { params }: { params: { chatId: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
   try {
     const { prompt } = await req.json()
     const user = await currentUser()

@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
-export async function PATCH(req: Request, { params }: { params: { companionId: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ companionId: string }> }) {
   try {
     const body = await req.json()
     const user = await currentUser()
@@ -13,7 +13,7 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
-    if (!params.companionId) {
+    if (!(await params).companionId) {
       return new NextResponse("Missing companionId", { status: 400 })
     }
 
@@ -26,7 +26,7 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
     const companion = await prismadb.companion.update({
       where: {
         userId: user.id,
-        id: params.companionId
+        id: (await params).companionId
       },
       data: {
         userId: user.id,
@@ -52,7 +52,7 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
 }
 
 
-export async function DELETE(req: Request, { params }: { params: { companionId: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ companionId: string }> }) {
   try {
     const { userId } = await auth()
 
@@ -62,7 +62,7 @@ export async function DELETE(req: Request, { params }: { params: { companionId: 
 
     const companion = await prismadb.companion.delete({
       where: {
-        id: params.companionId,
+        id: (await params).companionId,
         userId
       }
     })

@@ -5,10 +5,10 @@ import prismadb from '@/lib/prismadb';
 import React, { Suspense } from 'react';
 
 interface RootPageProps {
-  searchParams: {
+  searchParams: Promise<{
     categoryId: string
     name: string
-  }
+  }>
 }
 
 const RootPage = async ({ searchParams }: RootPageProps) => {
