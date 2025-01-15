@@ -7,10 +7,9 @@ import Image from 'next/image'
 interface ImageUploadProps {
   value: string
   onChange: (src: string) => void
-  disabled?: boolean
 }
 
-const ImageUpload = ({ value, onChange, disabled }: ImageUploadProps) => {
+const ImageUpload = ({ value, onChange }: ImageUploadProps) => {
 
   const [isMounted, setIsMounted] = React.useState(false)
   React.useEffect(() => {

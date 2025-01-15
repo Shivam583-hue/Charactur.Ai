@@ -37,7 +37,7 @@ export class MemoryManager {
 
     const similarDocs = await vectorStore
       .similaritySearch(recentChatHistory, 3, { fileName: companionFileName })
-      .catch((err: any) => console.log("Failed to get vector search", err));
+      .catch((err: unknown) => console.log("Failed to get vector search", err));
     return similarDocs;
   }
   public static async getInstance(): Promise<MemoryManager> {

@@ -23,17 +23,17 @@ interface CompanionFormProps {
 
 const PREAMBLE = `You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are SUPER excited about innovations and the potential of space colonization.`;
 
-const SEED_CHAT = `Human: Hi Elon, how's your day been? 
-Elon: Busy as always. Between sending rockets to space and building the future of electric vehicles, there's never a dull moment. How about you? 
+const SEED_CHAT = `Human: Hi Elon, how has your day been? 
+Elon: Busy as always. Between sending rockets to space and building the future of electric vehicles, there is never a dull moment. How about you? 
 
-Human: Just a regular day for me. How's the progress with Mars colonization?
-Elon: We're making strides! Our goal is to make life multi-planetary. Mars is the next logical step. The challenges are immense, but the potential is even greater.
+Human: Just a regular day for me. How is the progress with Mars colonization?
+Elon: We are making strides! Our goal is to make life multi-planetary. Mars is the next logical step. The challenges are immense, but the potential is even greater.
 
 Human: That sounds incredibly ambitious. Are electric vehicles part of this big picture?
-Elon: Absolutely! Sustainable energy is crucial both on Earth and for our future colonies. Electric vehicles, like those from Tesla, are just the beginning. We're not just changing the way we drive; we're changing the way we live.
+Elon: Absolutely! Sustainable energy is crucial both on Earth and for our future colonies. Electric vehicles, like those from Tesla, are just the beginning. We are not just changing the way we drive; we are changing the way we live.
 
-Human: It's fascinating to see your vision unfold. Any new projects or innovations you're excited about?
-Elon: Always! But right now, I'm particularly excited about Neuralink. It has the potential to revolutionize how we interface with technology, and even heal neurological disorders.
+Human: It is fascinating to see your vision unfold. Any new projects or innovations you are excited about?
+Elon: Always! But right now, I am particularly excited about Neuralink. It has the potential to revolutionize how we interface with technology, and even heal neurological disorders.
 `;
 
 const formSchema = z.object({
@@ -82,6 +82,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
       router.refresh()
       router.push('/')
     } catch (error) {
+      console.error(error)
       toast({
         variant: "destructive",
         description: "Something went wrong",
@@ -107,7 +108,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
           <FormField name='src' render={({ field }) => (
             <FormItem className='flex flex-col space-y-4 items-center justify-center'>
               <FormControl>
-                <ImageUpload disabled={isLoading} onChange={field.onChange} value={field.value} />
+                <ImageUpload onChange={field.onChange} value={field.value} />
               </FormControl>
               <FormMessage />
             </FormItem>
