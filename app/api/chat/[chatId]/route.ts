@@ -42,6 +42,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
       }
     })
 
+
     if (!companion) {
       return new NextResponse("No companion found", { status: 404 })
     }
@@ -61,6 +62,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
     if (records.length === 0) {
       await memoryManager.seedChatHistory(companion.seed, "\n\n", companionKey);
     }
+
 
     await memoryManager.writeToHistory("User: " + prompt + "\n", companionKey);
 
