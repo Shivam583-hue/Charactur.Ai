@@ -22,13 +22,8 @@ export class MemoryManager {
     })
   }
 
-  //public async init() {
-  //  if (this.vectorDBClient instanceof PineconeClient) {
-  //    await this.vectorDBClient.init({
-  //      environment: process.env.PINECONE_ENVIRONMENT,
-  //    });
-  //  }
-  //}
+  public async init() {
+  }
 
   public async vectorSearch(recentChatHistory: string, companionFileName: string) {
     const pineconeClient = <Pinecone>this.vectorDBClient;
@@ -45,13 +40,14 @@ export class MemoryManager {
       .catch((err: any) => console.log("Failed to get vector search", err));
     return similarDocs;
   }
-  //public static async getInstance(): Promise<MemoryManager> {
-  //  if (!MemoryManager.instance) {
-  //    MemoryManager.instance = new MemoryManager();
-  //    await MemoryManager.instance.init
-  //  }
-  //  return MemoryManager.instance;
-  //}
+  public static async getInstance(): Promise<MemoryManager> {
+    if (!MemoryManager.instance) {
+      MemoryManager.instance = new MemoryManager();
+      // await MemoryManager.instance.init
+      MemoryManager.instance.init
+    }
+    return MemoryManager.instance;
+  }
   private generateRedisCompanionKey(companionKey: CompanionKey): string {
     return `${companionKey.companionName}-${companionKey.modelName}-${companionKey.userId}`;
   }

@@ -1,9 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import { Companion } from '@prisma/client'
 import React from 'react'
-import { Message } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, Edit, MessagesSquare, MoreVertical, Trash } from 'lucide-react'
 import BotAvatar from './BotAvatar'
@@ -11,10 +9,11 @@ import { useUser } from '@clerk/nextjs'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { useToast } from '@/hooks/use-toast'
 import axios from 'axios'
+import { ChatClientProps } from './ChatClient'
 
-interface ChatClientProps {
-  companion: Companion & { _count: { messages: number }, messages: Message[] }
-}
+//interface ChatClientProps {
+// companion: Companion & { messages: Message[]; _count: { messages: number } }
+//}
 
 const ChatHeader = ({ companion }: ChatClientProps) => {
 

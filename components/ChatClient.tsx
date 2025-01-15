@@ -9,7 +9,7 @@ import ChatForm from "./ChatForm"
 import ChatMessages from "./ChatMessages"
 import { ChatMessageProps } from "./ChatMessage"
 
-interface ChatClientProps {
+export interface ChatClientProps {
   companion: Companion & { messages: Message[]; _count: { messages: number }; }
 }
 
@@ -36,6 +36,7 @@ const ChatClient = ({ companion }: ChatClientProps) => {
       setInput("")
 
       router.refresh()
+      router.refresh()
     }
   })
 
@@ -50,7 +51,7 @@ const ChatClient = ({ companion }: ChatClientProps) => {
     <div className='flex flex-col h-full p-4 space-y-2'>
       <ChatHeader companion={companion} />
       <ChatMessages companion={companion} isLoading={isLoading} messages={messages} />
-      <ChatForm isLoading={isLoading} onSubmit={handleSubmit} input={input} handleInputChange={handleInputChange} />
+      <ChatForm isLoading={isLoading} onSubmit={onSubmit} input={input} handleInputChange={handleInputChange} />
     </div>
   )
 }
