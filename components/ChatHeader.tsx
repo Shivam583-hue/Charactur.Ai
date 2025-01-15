@@ -31,6 +31,7 @@ const ChatHeader = ({ companion }: ChatClientProps) => {
       router.refresh()
       router.push('/')
     } catch (error) {
+      console.error(error)
       toast({
         variant: "destructive",
         description: "Something went wrong",

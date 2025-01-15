@@ -184,7 +184,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                 <Textarea className='bg-background  resize-none' rows={7} disabled={isLoading} placeholder={PREAMBLE} {...field} />
               </FormControl>
               <FormDescription>
-                Describe in detail your AI Companion's personality, goals, motivations, background and any other relevant information.
+                Describe in detail your AI companion&apos;s personality, goals, motivations, background, and any other relevant information.
               </FormDescription>
               <FormMessage />
             </FormItem>

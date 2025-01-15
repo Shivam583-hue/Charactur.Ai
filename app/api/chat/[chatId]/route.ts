@@ -1,4 +1,5 @@
 import { StreamingTextResponse, LangChainStream } from "ai"
+//import { Readable } from 'stream';
 import { currentUser } from "@clerk/nextjs/server"
 //import { CallbackManager } from "langchain/callbacks"
 import { Replicate } from "@langchain/community/llms/replicate";
@@ -70,7 +71,7 @@ export async function POST(req: Request, { params }: { params: { chatId: string 
     let relevantHistory = "";
 
     if (!!similarDocs && similarDocs.length !== 0) {
-      relevantHistory = similarDocs.map((doc: any) => doc.pageContent).join("\n");
+      relevantHistory = similarDocs.map((doc) => doc.pageContent).join("\n");
     }
 
     const { handlers } = LangChainStream();
@@ -98,11 +99,11 @@ export async function POST(req: Request, { params }: { params: { chatId: string 
 
         ${recentChatHistory}\n${name};
         `
-      ).catch((err: any) => console.log("Error in model.call", err))
+      ).catch((err: unknown) => console.log("Error in model.call", err))
     )
 
     const cleaned = resp.replaceAll(",", "");
-    const chunks = cleaned.split("\n");
+    //    const chunks = cleaned.split("\n");
     //    const response = chunks[0]
 
     const lines = cleaned.split("\n").filter((line) => line.trim().length > 0); // Split and remove empty lines
@@ -110,9 +111,9 @@ export async function POST(req: Request, { params }: { params: { chatId: string 
     //    const response = cleaned.substring(cleaned.lastIndexOf("\n") + 1).trim();
 
     await memoryManager.writeToHistory("" + response.trim(), companionKey);
-    var Readable = require('stream').Readable;
+    let Readable = require('stream').Readable; // eslint-disable-next-line no-var
 
-    let s = new Readable();
+    const s = new Readable();
     s.push(response);
     s.push(null);
 

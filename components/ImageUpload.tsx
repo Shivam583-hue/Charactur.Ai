@@ -23,6 +23,7 @@ const ImageUpload = ({ value, onChange }: ImageUploadProps) => {
   return (
     <div className='space-y-4 w-full flex flex-col items-center justify-center'>
       <CldUploadButton
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         onUpload={(result: any) => {
           onChange(result.info.secure_url)
         }}
