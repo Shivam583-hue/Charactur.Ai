@@ -44,6 +44,7 @@ export class MemoryManager {
     if (!MemoryManager.instance) {
       MemoryManager.instance = new MemoryManager();
       // await MemoryManager.instance.init
+      // eslint-disable-next-line 
       MemoryManager.instance.init
     }
     return MemoryManager.instance;

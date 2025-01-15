@@ -111,7 +111,8 @@ export async function POST(req: Request, { params }: { params: { chatId: string 
     //    const response = cleaned.substring(cleaned.lastIndexOf("\n") + 1).trim();
 
     await memoryManager.writeToHistory("" + response.trim(), companionKey);
-    let Readable = require('stream').Readable; // eslint-disable-next-line no-var
+    // eslint-disable-next-line 
+    const Readable = require('stream').Readable;
 
     const s = new Readable();
     s.push(response);
