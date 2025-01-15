@@ -3,7 +3,6 @@
 import { cn } from '@/lib/utils';
 import MobileSidebar from '@/components/mobile-sidebar';
 import { ModeToggle } from '@/components/mode-toggle';
-
 import { UserButton } from '@clerk/nextjs';
 import { Sparkles } from 'lucide-react';
 import { Poppins } from 'next/font/google';
@@ -29,10 +28,12 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='flex items-center gap-x-3'>
-        <Button variant="premium" size='sm'>
-          Upgrade
-          <Sparkles className='h-4 w-4 fill-white text-white ml-2' />
-        </Button>
+        <Link href="/settings">
+          <Button variant="premium" size='sm'>
+            Upgrade
+            <Sparkles className='h-4 w-4 fill-white text-white ml-2' />
+          </Button>
+        </Link>
         <ModeToggle />
         <UserButton />
       </div>

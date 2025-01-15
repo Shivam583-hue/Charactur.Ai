@@ -56,7 +56,8 @@ const ChatHeader = ({ companion }: ChatClientProps) => {
             </div>
           </div>
           <p className='text-xs text-muted-foreground'>
-            Created by {companion.userName}
+            Created by {companion.userName} <br />
+            Characters might take upto 5 minutes to respond, thank you for your patience!
           </p>
         </div>
       </div>
